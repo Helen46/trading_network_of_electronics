@@ -28,25 +28,14 @@ class Partner(models.Model):
         verbose_name='Владелец',
         **NULLABLE
     )
-
-    class Meta:
-        verbose_name = 'Партнер'
-        verbose_name_plural = 'Партнеры'
-
-    def __str__(self):
-        return self.name
-
-
-class PartnerContacts(models.Model):
-    """Модель контактов партнера"""
-    partner = models.ForeignKey(
-        Partner,
-        on_delete=models.CASCADE,
-        verbose_name='Партнер',
-        help_text='Укажите для какого партнера контакты'
+    provider = models.ForeignKey(
+        'self',
+        on_delete=models.SET_NULL,
+        verbose_name='Поставщик',
+        help_text='Укажите поставщика',
+        null=True
     )
     email = models.EmailField(
-        unique=True,
         verbose_name='Электронная почта',
         help_text='Укажите электронную почту'
     )
@@ -70,13 +59,72 @@ class PartnerContacts(models.Model):
         verbose_name='Номер дома',
         help_text='Укажите номер дома'
     )
-    owner = models.ForeignKey(
-        AUTH_USER_MODEL,
-        on_delete=models.PROTECT,
-        verbose_name='Владелец',
-        **NULLABLE
+    created_at = models.DateTimeField(
+        verbose_name="Дата создания (записи в БД)",
+        auto_now_add=True
     )
 
     class Meta:
-        verbose_name = 'Контакты партнера'
-        verbose_name_plural = 'Контакты партнеров'
+        verbose_name = 'Партнер'
+        verbose_name_plural = 'Партнеры'
+
+    def __str__(self):
+        return f'{self.name}'
+
+
+class Product(models.Model):
+    """Модель продукта"""
+    owner = models.ForeignKey(
+        Partner,
+        on_delete=models.CASCADE
+    )
+    name = models.CharField(
+        max_length=300,
+        verbose_name='Название продукта',
+        help_text='Введите название продукта'
+    )
+    model = models.CharField(
+        max_length=150,
+        verbose_name='Модель продукта',
+        help_text='Введите модель продукта',
+        **NULLABLE
+    )
+    launch_date = models.DateField(
+        verbose_name='Дата выхода продукта на рынок',
+        help_text='Введите дату выхода продукта на рынок в формате ГГГГ-ММ-ДД'
+    )
+
+    class Meta:
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
+
+    def __str__(self):
+        return f'{self.name}'
+
+
+class Credit(models.Model):
+    """Модель задолженности"""
+    amount = models.FloatField(
+        default=0,
+        verbose_name='Сумма задолженности',
+        help_text='Укажите сумму задолженность до копеек'
+    )
+    creditor = models.ForeignKey(
+        Partner,
+        on_delete=models.CASCADE,
+        verbose_name='Кредитор',
+        related_name='creditor'
+    )
+    debtor = models.ForeignKey(
+        Partner,
+        on_delete=models.CASCADE,
+        verbose_name='Дебитор',
+        related_name='debtor'
+    )
+
+    class Meta:
+        verbose_name = 'Задолженность'
+        verbose_name_plural = 'Задолженности'
+
+    def __str__(self):
+        return f'{self.amount}'
