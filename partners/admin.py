@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from partners.models import Partner, Product, Credit
+from partners.models import Partner, Product
 
 @admin.register(Partner)
 class PartnerAdmin(admin.ModelAdmin):
@@ -11,8 +11,3 @@ class PartnerAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'model', 'owner')
-
-
-@admin.register(Credit)
-class CreditAdmin(admin.ModelAdmin):
-    list_display = ('id', 'amount', 'creditor', 'debtor')

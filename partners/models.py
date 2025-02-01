@@ -63,6 +63,12 @@ class Partner(models.Model):
         verbose_name="Дата создания (записи в БД)",
         auto_now_add=True
     )
+    amount_credit = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name='Задолженность перед поставщиком'
+    )
 
     class Meta:
         verbose_name = 'Партнер'
@@ -100,31 +106,3 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.name}'
-
-
-class Credit(models.Model):
-    """Модель задолженности"""
-    amount = models.FloatField(
-        default=0,
-        verbose_name='Сумма задолженности',
-        help_text='Укажите сумму задолженность до копеек'
-    )
-    creditor = models.ForeignKey(
-        Partner,
-        on_delete=models.CASCADE,
-        verbose_name='Кредитор',
-        related_name='creditor'
-    )
-    debtor = models.ForeignKey(
-        Partner,
-        on_delete=models.CASCADE,
-        verbose_name='Дебитор',
-        related_name='debtor'
-    )
-
-    class Meta:
-        verbose_name = 'Задолженность'
-        verbose_name_plural = 'Задолженности'
-
-    def __str__(self):
-        return f'{self.amount}'

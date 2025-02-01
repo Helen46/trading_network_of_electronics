@@ -11,8 +11,7 @@ from users.permissions import IsOwner, IsAdmin
 class PartnerViewSet(ModelViewSet):
     queryset = Partner.objects.all()
     serializer_class = PartnerSerializer
-    filter_backends = [OrderingFilter, ]
-    ordering_fields = ['country', ]
+    filterset_fields = ('country',)
 
     def perform_create(self, serializer):
         partner = serializer.save()
@@ -26,3 +25,7 @@ class PartnerViewSet(ModelViewSet):
             self.permission_classes = (IsOwner | IsAdmin,)
 
         return super().get_permissions()
+
+
+# class PartnerListView(ListAPIView):
+#
