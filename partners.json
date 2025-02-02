@@ -1,0 +1,53 @@
+[
+{
+    "model": "partners.partner",
+    "pk": 1,
+    "fields": {
+        "type": "factory",
+        "name": "Электроник",
+        "owner": 2,
+        "provider": null,
+        "email": "user1@gmail.com",
+        "country": "Россия",
+        "city": "Тольятти",
+        "street": "Заводская",
+        "building_number": "10",
+        "created_at": "2025-02-01T21:22:20.321Z",
+        "amount_credit": "0.00"
+    }
+},
+{
+    "model": "partners.partner",
+    "pk": 2,
+    "fields": {
+        "type": "retail chain",
+        "name": "Сеть электроники",
+        "owner": 3,
+        "provider": 1,
+        "email": "user2@gmail.com",
+        "country": "Россия",
+        "city": "Москва",
+        "street": "Ленина",
+        "building_number": "23",
+        "created_at": "2025-02-01T21:24:48.931Z",
+        "amount_credit": "0.00"
+    }
+},
+{
+    "model": "partners.partner",
+    "pk": 3,
+    "fields": {
+        "type": "individual entrepreneur",
+        "name": "Петров И.И.",
+        "owner": 4,
+        "provider": 2,
+        "email": "user3@gmail.com",
+        "country": "Казахстан",
+        "city": "Алматы",
+        "street": "Рабочая",
+        "building_number": "45",
+        "created_at": "2025-02-01T21:27:34.458Z",
+        "amount_credit": "0.00"
+    }
+}
+]
